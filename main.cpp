@@ -7,6 +7,7 @@
 
 //El código fue hecho con la librería SFML y compilado en mingw
 
+//Constantes para la visualización
 const float NODE_RADIUS = 25.f;
 const float VERTICAL_SPACING = 80.f;
 
@@ -21,7 +22,7 @@ private:
     SegmentTree* left;   // hijo izquierdo
     SegmentTree* right;  // hijo derecho
 
-
+    // Atributos para la visualización
     float x, y;
     mutable State state;
 
@@ -262,15 +263,15 @@ int main() {
     ops.push_back({"Consulta [2, 5]", [&](SegmentTree& t){
         t.resetVisuals();
         int res = t.query(2, 5);
-        lastResult = "Result: " + std::to_string(res);
+        lastResult = "Resultado: " + std::to_string(res);
         std::cout << "2) Consulta suma en [2, 5] = " << res << "\n";
     }});
 
 
-    ops.push_back({"Actualizacion idx 3 = 10", [&](SegmentTree& t){
+    ops.push_back({"Actualizacion T[3] = 10", [&](SegmentTree& t){
         t.resetVisuals();
         t.update(3, 10);
-        lastResult = "Updated idx 3 to 10";
+        lastResult = "";
         std::cout << "3) Actualizacion puntual: datos[3] = 10\n";
     }});
 
@@ -278,7 +279,7 @@ int main() {
     ops.push_back({"Consulta [2, 5] (Post-Update)", [&](SegmentTree& t){
         t.resetVisuals();
         int res = t.query(2, 5);
-        lastResult = "Result: " + std::to_string(res);
+        lastResult = "Resultado: " + std::to_string(res);
         std::cout << "   Nueva suma en [2, 5] = " << res << "\n";
     }});
 
@@ -286,22 +287,22 @@ int main() {
     ops.push_back({"Actualizacion Rango [1, 4] += 3", [&](SegmentTree& t){
         t.resetVisuals();
         t.updateRange(1, 4, 3);
-        lastResult = "Added 3 to range [1, 4]";
+        lastResult = "";
         std::cout << "4) Actualizacion por rango: se suma 3 a [1, 4]\n";
     }});
 
 
-    ops.push_back({"Consulta [2, 5] (Final)", [&](SegmentTree& t){
+    ops.push_back({"Consulta [2, 5]", [&](SegmentTree& t){
         t.resetVisuals();
         int res = t.query(2, 5);
-        lastResult = "Result: " + std::to_string(res);
+        lastResult = "Resultado: " + std::to_string(res);
         std::cout << "   Suma final en [2, 5] = " << res << "\n";
     }});
     
 
-    ops.push_back({"Final State", [&](SegmentTree& t){
+    ops.push_back({"Estado final", [&](SegmentTree& t){
         t.resetVisuals();
-        lastResult = "Done";
+        lastResult = "";
     }});
 
     int currentOp = 0;
@@ -378,7 +379,7 @@ int main() {
         // Draw Info
         sf::Text infoText;
         infoText.setFont(font);
-        infoText.setString("Operación " + std::to_string(currentOp) + ": " + ops[currentOp].name + "\n" + lastResult + "\nPress Space/Click for Next");
+        infoText.setString("Operacion " + std::to_string(currentOp) + ": " + ops[currentOp].name + "\n" + lastResult + "\nPress Space/Click for Next");
         infoText.setCharacterSize(24);
         infoText.setFillColor(sf::Color::Black);
         infoText.setPosition(10, 10);
